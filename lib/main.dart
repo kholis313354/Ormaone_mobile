@@ -40,38 +40,45 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.red[800],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/icon3.png',
-              width: 300,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/icon3.png',
+                  width: 300,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.error,
+                    size: 500,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  " ",
+                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0, // Menempatkan gambar di posisi paling bawah
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/pms.png',
+              width: double.infinity,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => const Icon(
                 Icons.error,
-                size: 500,
+                size: 100,
                 color: Colors.white,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Image.asset(
-                'assets/images/pms.png',
-                width: 1700,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Icons.error,
-                  size: 100,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              " ",
-              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -106,14 +113,14 @@ class OnboardingScreen extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) => const Icon(
                   Icons.error,
                   size: 100,
-                  color: const Color(0xA01D1DFF),
+                  color: Color(0xA01D1DFF),
                 ),
               ),
               const SizedBox(height: 20),
               const Text(
                 "Satu aplikasi untuk semua kebutuhan Ormaone",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.red),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFFB71C1C)),
               ),
               const Padding(
                 padding: EdgeInsets.all(16.0),
@@ -125,7 +132,7 @@ class OnboardingScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Color(0xFFB71C1C),
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
