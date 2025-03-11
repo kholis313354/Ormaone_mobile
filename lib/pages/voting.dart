@@ -8,15 +8,9 @@ class VotingPage extends StatelessWidget {
 
   final List<String> votingItems = const [
     "Pemilihan Ketua BEM Universitas 2025",
-    "Pemilihan Ketua BEM FICT 2025",
-    "Pemilihan Ketua BEM FHS 2025",
-    "Pemilihan Ketua BEM FMB 2025",
-    "Pemilihan Ketua BLM FICT 2025",
-    "Pemilihan Ketua BLM FHS 2025",
-    "Pemilihan Ketua BLM FMB 2025",
-    "Pemilihan Ketua HIMA FICT 2025",
-    "Pemilihan Ketua HIMA FHS 2025",
-    "Pemilihan Ketua HIMA FMB 2025",
+    "Pemilihan Ketua BEM Fakultas 2025",
+    "Pemilihan Ketua BLM 2025",
+    "Pemilihan Ketua HIMA Fakultas 2025",
   ];
 
   @override
@@ -41,34 +35,24 @@ class VotingPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home, color: Colors.grey, size: 30),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const BerandaPage()),
-                    );
-                  },
-                ),
-              ],
+            IconButton(
+              icon: const Icon(Icons.home, color: Colors.grey, size: 30),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BerandaPage()),
+                );
+              },
             ),
             const SizedBox(width: 40),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.person, color: Colors.grey, size: 30),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ProfilePage()),
-                    );
-                  },
-                ),
-              ],
+            IconButton(
+              icon: const Icon(Icons.person, color: Colors.grey, size: 30),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
+              },
             ),
           ],
         ),
@@ -80,7 +64,7 @@ class VotingPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: ListView.builder(
           itemCount: votingItems.length,
           itemBuilder: (context, index) {
@@ -100,41 +84,54 @@ class VotingPage extends StatelessWidget {
         );
       },
       child: Card(
-        margin: const EdgeInsets.only(bottom: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: const EdgeInsets.only(bottom: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 4,
-        child: Padding(
+        child: Container(
+          height: 150, // Ukuran card diperbesar
+          decoration: BoxDecoration(
+            color: const Color(0xFFB71C1C), // Warna merah
+            borderRadius: BorderRadius.circular(12),
+            image: const DecorationImage(
+              image: AssetImage('assets/images/Hui.png'), // Background gambar vote.png
+              fit: BoxFit.cover,
+              opacity: 0.2,
+            ),
+          ),
           padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              const Icon(Icons.how_to_vote, color: Color(0xFFB71C1C), size: 30),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                          color: Color(0xFFB71C1C),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+              // Konten teks dan ikon bawah
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
                     ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: const [
-                        Icon(Icons.people, color: Colors.grey, size: 16),
-                        SizedBox(width: 5),
-                        Text("500 Mahasiswa", style: TextStyle(color: Colors.grey)),
-                        SizedBox(width: 10),
-                        Icon(Icons.calendar_today, color: Colors.grey, size: 16),
-                        SizedBox(width: 5),
-                        Text("01 - 07 September 2025", style: TextStyle(color: Colors.grey)),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: const [
+                      Icon(Icons.people, color: Colors.white, size: 16),
+                      SizedBox(width: 5),
+                      Text("500 Mahasiswa", style: TextStyle(color: Colors.white)),
+                      SizedBox(width: 15),
+                      Icon(Icons.calendar_today, color: Colors.white, size: 16),
+                      SizedBox(width: 5),
+                      Text("01 - 07 September 2025", style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ],
+              ),
+              // Ikon vote di kanan atas
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Icon(Icons.how_to_vote, color: Colors.white, size: 30),
               ),
             ],
           ),

@@ -70,6 +70,8 @@ flutter:
     - assets/images/kandidat.png
     - assets/images/foto.jpg
     - assets/images/Hui.png
+    - assets/images/profile.png
+    - assets/images/Vector.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

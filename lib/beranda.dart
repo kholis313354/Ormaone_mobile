@@ -19,14 +19,14 @@ class _BerandaPageState extends State<BerandaPage> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < 9) {
+      if (_currentPage < 3) { // 4 halaman total (0 - 3)
         _currentPage++;
       } else {
         _currentPage = 0;
       }
       _pageController.animateToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
     });
@@ -42,12 +42,12 @@ class _BerandaPageState extends State<BerandaPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home, color: Color(0xFFB71C1C),size: 30),
+              icon: const Icon(Icons.home, color: Color(0xFFB71C1C), size: 30),
               onPressed: () {},
             ),
             const SizedBox(width: 40),
             IconButton(
-              icon: const Icon(Icons.person, color: Colors.grey,size: 30),
+              icon: const Icon(Icons.person, color: Colors.grey, size: 30),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -109,12 +109,21 @@ class _BerandaPageState extends State<BerandaPage> {
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 220,
-                  child: PageView.builder(
+                  child: PageView(
                     controller: _pageController,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return hasilSementaraCard();
-                    },
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      hasilSementaraCard("Jumlah Suara BEM University"),
+                      hasilSementaraCard("Jumlah Suara BLM FHS"),
+                      hasilSementaraCard("Jumlah Suara BLM FICT"),
+                      hasilSementaraCard("Jumlah Suara BLM FMB"),
+                      hasilSementaraCard("Jumlah Suara BEM FMB"),
+                      hasilSementaraCard("Jumlah Suara BEM FICT "),
+                      hasilSementaraCard("Jumlah Suara BEM FHS "),
+                      hasilSementaraCard("Jumlah Suara HIMA FICT "),
+                      hasilSementaraCard("Jumlah Suara HIMA FHS "),
+                      hasilSementaraCard("Jumlah Suara HIMA FMB ")
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -143,7 +152,7 @@ class _BerandaPageState extends State<BerandaPage> {
     );
   }
 
-  Widget hasilSementaraCard() {
+  Widget hasilSementaraCard(String title) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.all(16),
@@ -161,17 +170,37 @@ class _BerandaPageState extends State<BerandaPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Jumlah Suara BEM FICT", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           SizedBox(
             height: 150,
             child: BarChart(
               BarChartData(
                 barGroups: [
-                  makeBarData(0, 350, Colors.red),
-                  makeBarData(1, 180, Colors.yellow),
-                  makeBarData(2, 220, Colors.green),
+                  makeBarData("Rehan", 350, Colors.red),
+                  makeBarData("Ira", 180, Colors.yellow),
+                  makeBarData("Bintang", 220, Colors.green),
                 ],
+                titlesData: FlTitlesData(
+                  leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, reservedSize: 40)),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (double value, TitleMeta meta) {
+                        switch (value.toInt()) {
+                          case 0:
+                            return const Text("Rehan", style: TextStyle(fontSize: 12));
+                          case 1:
+                            return const Text("Ira", style: TextStyle(fontSize: 12));
+                          case 2:
+                            return const Text("Bintang", style: TextStyle(fontSize: 12));
+                          default:
+                            return const Text("");
+                        }
+                      },
+                    ),
+                  ),
+                ),
                 borderData: FlBorderData(show: false),
                 gridData: FlGridData(show: false),
               ),
@@ -182,7 +211,21 @@ class _BerandaPageState extends State<BerandaPage> {
     );
   }
 
-  BarChartGroupData makeBarData(int x, double y, Color color) {
+  BarChartGroupData makeBarData(String nama, double y, Color color) {
+    int x;
+    switch (nama) {
+      case "Rehan":
+        x = 0;
+        break;
+      case "Ira":
+        x = 1;
+        break;
+      case "Bintang":
+        x = 2;
+        break;
+      default:
+        x = 0;
+    }
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -212,7 +255,7 @@ class _BerandaPageState extends State<BerandaPage> {
             child: Column(
               children: [
                 Text("Bintang Aditya", style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("\"Membangun BEM yang Inklusif dan Progresif\"", style: TextStyle(fontSize: 12, color: Color(0xFFB71C1C))),
+                Text("\"Membangun BEM yang Inklusif dan Progresif\"", style: TextStyle(fontSize: 12, color: Color(0xFFA3A3A3))),
               ],
             ),
           ),
